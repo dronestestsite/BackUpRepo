@@ -21,7 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Токен бота та chat_id
     $bot_token = '7769976872:AAGHMrgbDIfUp-dB8IC4Ns904sNbXEPB2Sg'; // Твій токен бота
-    $chat_id = ''; // Заміни на свій chat_id
+    $chat_id = '7800011505'; // Заміни на свій chat_id
 
     // Формуємо текст повідомлення
     $message = "Ім'я: $first_name\nПрізвище: $last_name\nТелефон: $phone";

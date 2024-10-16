@@ -1,14 +1,7 @@
 <?php
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
-
-require 'PHPMailer/src/Exception.php';
-require 'PHPMailer/src/PHPMailer.php';
-require 'PHPMailer/src/SMTP.php';
-
 // Перевіряємо, чи форма була відправлена
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Отримуємо дані з полів форми
+    // Отримуємо дані з форми
     $first_name = htmlspecialchars(trim($_POST['first_name']));
     $last_name = htmlspecialchars(trim($_POST['last_name']));
     $phone = htmlspecialchars(trim($_POST['phone']));
@@ -19,24 +12,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit();
     }
 
-    // Токен бота та chat_id
-    $bot_token = '7769976872:AAGHMrgbDIfUp-dB8IC4Ns904sNbXEPB2Sg'; // Твій токен бота
-    $chat_id = '7800011505'; // Заміни на свій chat_id
+    // Telegram: Токен бота та chat_id
+    $bot_token = '7769976872:AAGHMrgbDIfUp-dB8IC4Ns904sNbXEPB2Sg';
+    $chat_id = '7800011505';
 
-    // Формуємо текст повідомлення
-    $message = "Ім'я: $first_name\nПрізвище: $last_name\nТелефон: $phone";
+    // Формуємо повідомлення для Telegram
+    $telegram_message = "Ім'я: $first_name\nПрізвище: $last_name\nТелефон: $phone";
 
-    // URL для Telegram API
+    // URL для API Telegram
     $url = "https://api.telegram.org/bot$bot_token/sendMessage";
 
     // Параметри запиту
     $data = [
         'chat_id' => $chat_id,
-        'text' => $message,
-        'parse_mode' => 'HTML' // Якщо потрібно форматування HTML
+        'text' => $telegram_message,
+        'parse_mode' => 'HTML'
     ];
 
-    // Відправка запиту
+    // Відправка запиту до Telegram
     $options = [
         'http' => [
             'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
@@ -49,7 +42,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Перевірка на помилки
     if ($result === FALSE) {
-        echo "Помилка: " . error_get_last()['message'];
+        echo "Помилка Telegram: " . error_get_last()['message'];
     } else {
         // Перенаправляємо на сторінку подяки
         header("Location: thankspage.html");
